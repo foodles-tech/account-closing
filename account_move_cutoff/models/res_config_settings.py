@@ -22,3 +22,18 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="account_move_cutoff.link_product",
         help="Link product on deferred account.move.line.",
     )
+    default_cutoff_method = fields.Selection(
+        [
+            ("equal", "Equal"),
+            ("monthly_prorata_temporis", "Prorata temporis (by month %)"),
+        ],
+        string="Cutoff method",
+        config_parameter="account_move_cutoff.default_cutoff_method",
+        help=(
+            "Determine how to split amounts over periods:\n"
+            " * Equal: same amount is splitted over periods of the service"
+            "   (using start and end date on the invoice line).\n"
+            " * Prorata temporis by month %: amount is splitted over"
+            "   the rate of service days in the month.\n"
+        ),
+    )
